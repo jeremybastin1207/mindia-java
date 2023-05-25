@@ -1,7 +1,5 @@
 package org.mindia;
 
-import java.util.*;
-
 public class Config {
   private final String host;
   private final String apikey;
@@ -12,7 +10,7 @@ public class Config {
   }
 
   public String getHost() {
-    return "http://" + host;
+    return "http://" + host + "/" + Version.getVersion();
   }
 
   /**
