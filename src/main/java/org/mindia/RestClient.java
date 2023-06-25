@@ -1,28 +1,62 @@
-package org.mindia.handlers;
+package org.mindia;
 
 import com.google.gson.Gson;
 import okhttp3.*;
-import org.mindia.Config;
+import org.mindia.utils.FileUploadRequest;
+import org.mindia.utils.MultipartBuilder;
 import org.mindia.exceptions.APIError;
 import org.mindia.exceptions.MindiaApiException;
 import org.mindia.exceptions.MindiaException;
 import org.mindia.models.requests.CreateNamedTransformationRequest;
+import org.mindia.models.requests.UploadMediaRequest;
 import org.mindia.models.results.CreateNamedTransformationResult;
 import org.mindia.models.results.ReadNamedTransformationsResult;
+import org.mindia.models.results.UploadMediaResult;
 
 import java.io.IOException;
 
-public class NamedTransformationsHandler {
+public class RestClient {
+  private static final String UPLOAD_MEDIA_PATH = "/upload";
+  private static final String NAMED_TRANSFORMATION_PATH = "/named_transformation";
+
   private final OkHttpClient client;
   private final Config config;
 
-  public NamedTransformationsHandler(OkHttpClient client, Config config) {
+  public RestClient(OkHttpClient client, Config config) {
     this.client = client;
     this.config = config;
   }
 
-  public String getNamedTransformationPath() {
-    return this.config.getHost() + "/named_transformation";
+  public UploadMediaResult UploadMedia(UploadMediaRequest uploadMediaRequest) throws MindiaException {
+    UploadMediaResult result;
+
+    try {
+      FileUploadRequest fileUploadRequest = FileUploadRequest.builder()
+          .filename(uploadMediaRequest.getFilename())
+          .file(uploadMediaRequest.getFile())
+          .transformation(uploadMediaRequest.getTransformations())
+          .build();
+
+      MultipartBody multipartBody = MultipartBuilder.build(fileUploadRequest);
+
+      Request request = new Request.Builder()
+          .url(config.getHost() + UPLOAD_MEDIA_PATH)
+          .addHeader("Authorization", this.config.getApiKey())
+          .post(multipartBody)
+          .build();
+      Call call = client.newCall(request);
+      Response response = call.execute();
+
+      if (response.code() == 200 && response.body() != null) {
+        String respBody = response.body().string();
+        result = new Gson().fromJson(respBody, UploadMediaResult.class);
+      } else {
+        throw new MindiaApiException(new APIError(response.message(), String.valueOf(response.code()), "", ""));
+      }
+    } catch(IOException e) {
+      throw new MindiaException(e.getMessage());
+    }
+    return result;
   }
 
   public CreateNamedTransformationResult createNamedTransformation(CreateNamedTransformationRequest createNamedTransformationRequest) throws MindiaException {
@@ -32,7 +66,7 @@ public class NamedTransformationsHandler {
       RequestBody body = RequestBody.create(new Gson().toJson(createNamedTransformationRequest).getBytes());
 
       Request request = new Request.Builder()
-          .url(this.getNamedTransformationPath())
+          .url(config.getHost() + NAMED_TRANSFORMATION_PATH)
           .addHeader("Authorization", this.config.getApiKey())
           .post(body)
           .build();
@@ -56,7 +90,7 @@ public class NamedTransformationsHandler {
 
     try {
       Request request = new Request.Builder()
-          .url(this.getNamedTransformationPath())
+          .url(config.getHost() + NAMED_TRANSFORMATION_PATH)
           .addHeader("Authorization", this.config.getApiKey())
           .build();
       Call call = client.newCall(request);
@@ -77,7 +111,7 @@ public class NamedTransformationsHandler {
   public void deleteAllNamedTransformations() throws MindiaException {
     try {
       Request request = new Request.Builder()
-          .url(this.getNamedTransformationPath())
+          .url(config.getHost() + NAMED_TRANSFORMATION_PATH)
           .addHeader("Authorization", this.config.getApiKey())
           .delete()
           .build();

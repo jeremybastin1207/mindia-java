@@ -11,5 +11,5 @@ C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\Config.jav
 C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\models\results\UploadMediaResult.java
 C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\models\requests\ReadNamedTransformationsRequest.java
 C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\models\results\MetadataResponse.java
-C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\Client.java
+C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\MindiaClient.java
 C:\Users\Bastin\Documents\mindia-java-client\src\main\java\org\mindia\models\requests\DeleteNamedTransformationRequest.java
