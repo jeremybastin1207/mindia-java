@@ -1,6 +1,5 @@
 package org.mindia.integration;
 
-
 import com.google.common.io.Files;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -10,14 +9,7 @@ import org.mindia.MindiaClient;
 import org.mindia.models.requests.UploadMediaRequest;
 import org.mindia.models.results.UploadMediaResult;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 @Tag("integration")
 public class MediaTests {

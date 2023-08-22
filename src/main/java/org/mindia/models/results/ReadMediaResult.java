@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class ReadMediaResult {
+  private String path;
+
   @SerializedName("content_type")
   private String contentType;
 
