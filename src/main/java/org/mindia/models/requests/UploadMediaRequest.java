@@ -8,6 +8,7 @@ import java.io.File;
 @Data
 @Builder
 public class UploadMediaRequest {
+  private String folder;
   private String filename;
   private File file;
   private String transformations;

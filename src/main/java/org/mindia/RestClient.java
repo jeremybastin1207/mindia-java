@@ -35,17 +35,16 @@ public class RestClient {
 
     try {
       FileUploadRequest fileUploadRequest = FileUploadRequest.builder()
+          .folder(uploadMediaRequest.getFolder())
           .filename(uploadMediaRequest.getFilename())
-          .file(uploadMediaRequest.getFile())
           .transformation(uploadMediaRequest.getTransformations())
+          .file(uploadMediaRequest.getFile())
           .build();
 
-      MultipartBody multipartBody = MultipartBuilder.build(fileUploadRequest);
-
       Request request = new Request.Builder()
-          .url(config.getHost() + UPLOAD_MEDIA_PATH)
+          .url(config.getHost() + UPLOAD_MEDIA_PATH + uploadMediaRequest.getFolder())
           .addHeader("Authorization", this.config.getApiKey())
-          .post(multipartBody)
+          .post(MultipartBuilder.build(fileUploadRequest))
           .build();
       Call call = client.newCall(request);
       Response response = call.execute();
