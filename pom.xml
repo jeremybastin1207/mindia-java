@@ -20,15 +20,11 @@
         </license>
     </licenses>
 
-    <scm>
-        <url>https://github.com/jeremybastin1207/mindia</url>
-    </scm>
-
     <distributionManagement>
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/mindia/mindia-java</url>
+            <url>https://maven.pkg.github.com/jeremybastin1207/mindia-java</url>
         </repository>
     </distributionManagement>
 
