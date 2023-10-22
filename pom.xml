@@ -5,24 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.mindia</groupId>
-    <artifactId>mindia-java-client</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <artifactId>mindia-java</artifactId>
+    <version>0.0.1</version>
 
-    <name></name>
-    <description></description>
-    <url></url>
+    <name>Mindia Java</name>
+    <description>Mindia Java Client for Mindia server.</description>
+    <url>https://github.com/jeremybastin1207/mindia</url>
 
-      <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+    <licenses>
+        <license>
+          <name>Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <scm>
-    <url>https://svn.apache.org/viewvc/maven</url>
-  </scm>
+        <url>https://github.com/jeremybastin1207/mindia</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/mindia/mindia-java</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -39,7 +47,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
-            <version>4.10.0</version>
+            <version>5.0.0-alpha.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
